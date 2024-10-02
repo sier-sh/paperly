@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import Editor from "@/app/components/editor";
 import LogoLine from "@/app/components/logo-line";
+export const runtime = "edge";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const supabase = createClient();

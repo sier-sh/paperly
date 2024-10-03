@@ -23,6 +23,7 @@ import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { type EditorState, type LexicalEditor } from "lexical";
 import { createClient } from "@/utils/supabase/client";
 import { usePathname } from "next/navigation";
+import ShareLink from "@/app/components/share-link";
 
 const OnChangePlugin = ({
   onChange,
@@ -137,27 +138,30 @@ const Editor = ({
   };
 
   return (
-    <LexicalComposer initialConfig={initialConfig}>
-      <RichTextPlugin
-        contentEditable={
-          <ContentEditable className="min-h-screen outline-none" />
-        }
-        placeholder={
-          <div className="absolute left-0 top-0 text-base m-0">
-            Start writing...
-          </div>
-        }
-        ErrorBoundary={LexicalErrorBoundary}
-      />
-      <MarkdownShortcutPlugin />
-      <HistoryPlugin />
-      <AutoFocusPlugin />
-      <ClearEditorPlugin />
+    <>
+      <ShareLink />
+      <LexicalComposer initialConfig={initialConfig}>
+        <RichTextPlugin
+          contentEditable={
+            <ContentEditable className="min-h-screen outline-none" />
+          }
+          placeholder={
+            <div className="absolute left-0 top-[30px] text-base m-0">
+              Start writing...
+            </div>
+          }
+          ErrorBoundary={LexicalErrorBoundary}
+        />
+        <MarkdownShortcutPlugin />
+        <HistoryPlugin />
+        <AutoFocusPlugin />
+        <ClearEditorPlugin />
 
-      <ListPlugin />
-      <OnChangePlugin onChange={handleChange} />
-      <EditorRefPlugin editorRef={editorRef} />
-    </LexicalComposer>
+        <ListPlugin />
+        <OnChangePlugin onChange={handleChange} />
+        <EditorRefPlugin editorRef={editorRef} />
+      </LexicalComposer>
+    </>
   );
 };
 

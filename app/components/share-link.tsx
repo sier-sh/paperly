@@ -9,7 +9,7 @@ const ShareLink = () => {
       <div className="not-prose fixed top-0 right-0 text-right text-sm text-neutral-500 px-2 py-1 flex flex-col gap-y-1 items-end">
         <button
           className="h-fit cursor-pointer text-neutral-500 hover:text-neutral-600 transition-all px-2 py-1 hover:shadow rounded"
-          onClick={() => navigator.clipboard.writeText(location.href.slice(7))}
+          onClick={() => navigator.clipboard.writeText(location.href)}
         >
           Copy Paperlink
         </button>

@@ -147,7 +147,7 @@ const Editor = ({
           }
           placeholder={
             <div className="absolute left-0 top-[30px] text-base m-0">
-              Start writing...
+              Start writing and sharing...
             </div>
           }
           ErrorBoundary={LexicalErrorBoundary}

@@ -9,7 +9,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const { data } = await supabase
     .from("papers")
     .select("*")
-    .eq("id", params.id);
+    .eq("paperId", params.id);
 
   return (
     <div>

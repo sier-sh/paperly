@@ -41,9 +41,11 @@ const OnChangePlugin = ({
 const Editor = ({
   paperId,
   editorState,
+  initPaperId,
 }: {
   paperId?: string;
   editorState?: EditorState;
+  initPaperId?: string;
 }) => {
   const pathname = usePathname();
   const supabase = createClient();
@@ -96,19 +98,21 @@ const Editor = ({
     if (state.root.children[0].children.length) {
       localStorage.setItem("editorState", value);
       if (pathname === "/") {
-        const id = crypto.randomUUID();
-        history.replaceState({}, "", `/${id}`);
+        history.replaceState({}, "", `/${initPaperId}`);
         const editableIdsCache = localStorage.getItem("editableIds");
 
         const ids = editableIdsCache ? JSON.parse(editableIdsCache) : [];
 
-        localStorage.setItem("editableIds", JSON.stringify(ids.concat(id)));
+        localStorage.setItem(
+          "editableIds",
+          JSON.stringify(ids.concat(initPaperId)),
+        );
 
         await supabase
           .from("papers")
           .insert([
             {
-              id,
+              paperId: initPaperId,
               editorState: value,
             },
           ])
@@ -117,7 +121,7 @@ const Editor = ({
         await supabase
           .from("papers")
           .update({ editorState: value })
-          .eq("id", pathname.slice(1))
+          .eq("paperId", pathname.slice(1))
           .select();
       }
     } else {
@@ -126,7 +130,7 @@ const Editor = ({
         await supabase
           .from("papers")
           .update({ editorState: value })
-          .eq("id", pathname.slice(1))
+          .eq("paperId", pathname.slice(1))
           .select();
       }
     }
